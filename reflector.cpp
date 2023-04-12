@@ -7,14 +7,6 @@ Reflector::Reflector(RotorFabric* rf, int n) {
     rf->createReflector(connections, n);
 }
 
-void Reflector::print() {
-    std::cout << "Reflector: [";
-    for(int i = 0; i < 26; i++) {
-        std::cout << connections[i];
-    }
-    std::cout << "]\n";
-}
-
 char Reflector::process(char c) {
     return connections[c - 'A'];
 }

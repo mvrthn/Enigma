@@ -13,16 +13,6 @@ Enigma::Enigma(int *r, int n) {
     pos = new int[3];
 }
 
-void Enigma::printRotors() {
-    for(auto rotor : rotors) {
-        rotor->print();
-    }
-}
-
-void Enigma::printReflector() {
-    reflector->print();
-}
-
 void Enigma::setCode(int* code) {
     for(int i = 0; i < 3; i++) {
         pos[i] = code[i];

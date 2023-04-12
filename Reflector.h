@@ -6,7 +6,6 @@
 class Reflector {
 public:
     Reflector(RotorFabric* rf, int n);
-    void print();
     char process(char c);
     ~Reflector();
 private:

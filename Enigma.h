@@ -7,8 +7,6 @@
 class Enigma {
 public:
     Enigma(int *r, int n);
-    void printRotors();
-    void printReflector();
     void setCode(int* pos);
     char process(char c);
     ~Enigma();

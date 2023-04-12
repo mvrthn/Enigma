@@ -6,7 +6,6 @@
 class Rotor {
 public:
     Rotor(RotorFabric* rf, int n);
-    void print();
     char process(char c, int pos);
     ~Rotor();
 private:
