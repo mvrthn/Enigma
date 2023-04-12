@@ -3,18 +3,21 @@
 
 #include "Rotor.h"
 #include "Reflector.h"
+#include "Keyboard.h"
 
 class Enigma {
 public:
     Enigma(int *r, int n);
     void setCode(int* pos);
-    char process(char c);
+    void listen();
     ~Enigma();
 private:
-    bool validate(char* c);
+    char process(char c);
     void increment();
+    void print(char* buffer);
     Rotor* rotors[3];
     Reflector* reflector;
+    Keyboard* keyboard;
     int* pos;
 };
 

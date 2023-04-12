@@ -8,7 +8,7 @@ Rotor::Rotor(RotorFabric* rf, int n) {
 }
 
 char Rotor::process(char c, int pos) {
-    return connections[c - 'A' + pos];
+    return connections[(c - 'A' + pos) % 26];
 }
 
 Rotor::~Rotor() {

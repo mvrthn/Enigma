@@ -2,6 +2,9 @@
 #include "RotorFabric.h"
 #include "Rotor.h"
 #include "Reflector.h"
+#include "Keyboard.h"
+
+#include <iostream>
 
 Enigma::Enigma(int *r, int n) {
     RotorFabric* rf = new RotorFabric();
@@ -10,6 +13,7 @@ Enigma::Enigma(int *r, int n) {
     }
     reflector = new Reflector(rf, n);
     delete rf;
+    keyboard = new Keyboard();
     pos = new int[3];
 }
 
@@ -17,6 +21,26 @@ void Enigma::setCode(int* code) {
     for(int i = 0; i < 3; i++) {
         pos[i] = code[i];
     }
+}
+
+void Enigma::listen() {
+    char* buffer = keyboard->input();
+    for(char* c = buffer; *c != '\0'; c++) {
+        *c = process(*c);
+    }
+    print(buffer);
+}
+
+char Enigma::process(char c) {
+    for(int i = 0, a = 1; i >= 0; i += a) {
+        c = rotors[i]->process(c, pos[i]);
+        if(i == 2) {
+            c = reflector->process(c);
+            a = -1;
+        }
+    }
+    increment();
+    return c;
 }
 
 void Enigma::increment() {
@@ -31,30 +55,8 @@ void Enigma::increment() {
     }
 }
 
-char Enigma::process(char c) {
-    if(!validate(&c)) {
-        return '0';
-    }
-    for(int i = 0, a = 1; i >= 0; i += a) {
-        c = rotors[i]->process(c, pos[i]);
-        if(i == 2) {
-            c = reflector->process(c);
-            a = -1;
-        }
-    }
-    increment();
-    return c;
-}
-
-bool Enigma::validate(char* c) {
-    if(*c >= 'A' && *c <= 'Z') {
-        return true;
-    } 
-    if(*c >= 'a' && *c <= 'z') {
-        *c -= 32;
-        return true;
-    }
-    return false;
+void Enigma::print(char* buffer) {
+    std::cout << buffer << "\n";
 }
 
 Enigma::~Enigma() {
@@ -62,4 +64,6 @@ Enigma::~Enigma() {
         delete rotor;
     }
     delete reflector; 
+    delete keyboard;
+    delete[] pos;
 }
