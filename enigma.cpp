@@ -53,6 +53,7 @@ char Enigma::process(char c) {
         }
     }
     increment();
+    return c;
 }
 
 bool Enigma::validate(char* c) {
